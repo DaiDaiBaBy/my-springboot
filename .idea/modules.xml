@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/my-springboot.iml" filepath="$PROJECT_DIR$/.idea/my-springboot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-accessControl/springboot-accessControl.iml" filepath="$PROJECT_DIR$/springboot-accessControl/springboot-accessControl.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-excel/springboot-excel.iml" filepath="$PROJECT_DIR$/springboot-excel/springboot-excel.iml" />
     </modules>
   </component>

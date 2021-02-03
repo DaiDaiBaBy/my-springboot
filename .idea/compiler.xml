@@ -6,10 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="springboot-accessControl" />
         <module name="springboot-excel" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="springboot-accessControl" target="1.8" />
       <module name="springboot-excel" target="1.8" />
     </bytecodeTargetLevel>
   </component>
