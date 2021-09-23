@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhoufu.springbootshirodemo.mapper.UserMapper">
+    <select id="getUserByName" resultType="com.zhoufu.springbootshirodemo.model.User" parameterType="string">
+      select * from t_user where loginNumber=#{value}
+    </select>
+    <select id="getUser" resultType="com.zhoufu.springbootshirodemo.model.User">
+      select * from t_user
+    </select>
+    <select id="getUserMenu" resultType="com.zhoufu.springbootshirodemo.model.Menu" parameterType="string">
+        select tm.id,tm.perms,tm.pid,tm.text,tm.type,tm.url
+        from t_menu tm LEFT JOIN t_role_menu trm
+        ON tm.id=trm.menuId LEFT JOIN t_role tr
+        ON trm.roleId=tr.id LEFT JOIN t_user_role tur
+        ON tr.id = tur.roleId LEFT JOIN t_user tu
+        ON tur.userId = tu.id where tm.type !=1 AND tu.id=#{value}
+    </select>
+    <select id="getRoleByUserId" parameterType="string" resultType="string">
+        select tr.`name` name from t_role tr LEFT JOIN t_user_role tur
+        ON tr.id=tur.roleId LEFT JOIN t_user tu
+        ON tur.userId = tu.id where tu.id=#{value}
+    </select>
+    <select id="getUserMenuAll" resultType="com.zhoufu.springbootshirodemo.model.Menu" parameterType="string">
+        select tm.id,tm.perms,tm.pid,tm.text,tm.type,tm.url
+        from t_menu tm LEFT JOIN t_role_menu trm
+        ON tm.id=trm.menuId LEFT JOIN t_role tr
+        ON trm.roleId=tr.id LEFT JOIN t_user_role tur
+        ON tr.id = tur.roleId LEFT JOIN t_user tu
+        ON tur.userId = tu.id where tu.id=#{value}
+    </select>
+</mapper>

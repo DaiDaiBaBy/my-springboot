@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhoufu.springbootshiromybatis.mapper.RoleResourcesMapper">
+  <resultMap id="BaseResultMap" type="com.zhoufu.springbootshiromybatis.model.RoleResources">
+    <id column="roleId" jdbcType="INTEGER" property="roleid" />
+    <id column="resourcesId" jdbcType="INTEGER" property="resourcesid" />
+  </resultMap>
+  <insert id="insert" parameterType="com.zhoufu.springbootshiromybatis.model.RoleResources">
+    insert into role_resources (roleId, resourcesId)
+    values (#{roleid,jdbcType=INTEGER}, #{resourcesid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhoufu.springbootshiromybatis.model.RoleResources">
+    insert into role_resources
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleid != null">
+        roleId,
+      </if>
+      <if test="resourcesid != null">
+        resourcesId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleid != null">
+        #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="resourcesid != null">
+        #{resourcesid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

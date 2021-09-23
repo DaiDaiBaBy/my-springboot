@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/login/js/easyui/themes/icon.css"/>
+<link rel="stylesheet" href="/login/js/easyui/themes/default/easyui.css"/>
+<link rel="stylesheet" href="/login/js/easyui/themes/color.css"/>
+<script src="/login/js/jquery.min.js"></script>
+<script src="/login/js/easyui/jquery.easyui.min.js"></script>
+<script src="/login/js/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script src="/login/js/easyui/util-js.js"></script>
+</head>
+<body>
+	<div class="easyui-layout" data-options="fit:true">
+		<div data-options="region:'north'" style="height: 100px">
+			<div id="showWeather"></div>
+			<div id="showW"></div>
+		</div>
+		<div data-options="region:'west'" style="width: 250px">
+			<ul id="treeId"></ul>
+		</div>
+		<div data-options="region:'center'">
+			<div id="tabsId" class="easyui-tabs" data-options="fit:true">
+				<div title="欢迎" >
+					<h1>欢迎光临！</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript">
+	$(function(){
+		$("#treeId").tree({
+			url:'/user/getUserMenu',
+			lines:true,
+			parentField:'pid',
+			onClick:function(node){
+				if(undefined == node.children || node.children.length <= 0){
+					var flag = $('#tabsId').tabs('exists',node.text);
+					if(flag){
+						$('#tabsId').tabs('select',node.text)
+					}else{
+						if (node.id == '19') {
+							location.href=node.url;
+							return;
+						}else{
+							$('#tabsId').tabs('add',{
+								title:node.text,
+								content:createFrame(node.url),
+								closable:true,
+								tools:[
+									{
+										iconCls:'icon-mini-refresh',
+										handler:function(){
+											var selectTab = $('#tabsId').tabs('getSelected');
+											$('#tabsId').tabs('update',{
+												tab:selectTab,
+												options:{
+													content:createFrame(node.url)
+												}
+											});
+										}
+									}
+								]
+							})
+						}
+						
+					}
+				}
+			}
+		})
+		
+	})
+	function createFrame(url){  
+	   return '<iframe border="0" scrolling="yes" frameborder="0"  src="'+ url + '" style="width:99.9%;height:99.5%;"></iframe>';  
+	}
+</script>
+
+</body>
+</html>

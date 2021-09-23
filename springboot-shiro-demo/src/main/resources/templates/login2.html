@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form id="loginForm">
+   用户名 <input type="text" name="loginNumber" >
+    <font color="red"><span id="info"></span></font><br/>
+    密码<input type="password" name="password"><br/>
+    <input type="button" value="登录" onclick="login2()"><br/>
+    验证码<input type="text">
+    <img data-th-src="@{gifCode}" id="validateCodeImg" onclick="reloadCode()" style="display:inline-block" />
+</form>
+<script src="../js/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        reloadCode();
+    })
+    function reloadCode() {
+        $("#validateCodeImg").attr("src", "gifCode?data=" + new Date() + "");
+    }
+    function login(){
+        $.ajax({
+            url:'../login',
+            type:'post',
+            data:$('#loginForm').serialize(),
+            success:function(d){
+                if (d['data'] == 'SUCCESS'){
+                    location.href='../toIndex';
+                } else{
+                    $('#info').html(d['data']);
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

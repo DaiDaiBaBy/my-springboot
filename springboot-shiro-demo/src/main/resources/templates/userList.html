@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/login/js/jquery.min.js"></script>
+</head>
+<body>
+    <!--hasPermission 判断是否拥有权限，拥有则显示html标签，未拥有则不展示-->
+<a shiro:hasPermission="user:add" href="#">新增</a>
+<a shiro:hasPermission="user:update" href="#">修改</a>
+<a shiro:hasPermission="user:delete" href="#">删除</a>
+    <a shiro:hasPermission="user:delete" href="javascript:logout()">注销</a>
+<table>
+    <tr>
+        <td>序号</td>
+        <td>用户名</td>
+        <td>账号</td>
+        <td>密码</td>
+    </tr>
+    <tbody id="userList"></tbody>
+</table>
+<script>
+    function logout(){
+        location.href="../logout";
+    }
+    function loadList(){
+        $.ajax({
+            url:'../user/getUser',
+            type:'post',
+            success:function(data){
+                var html = "";
+                for (var i=0;i<data.length;i++){
+                    html+='<tr>' +
+                        '<td>'+data[i].id+'</td>' +
+                        '<td>'+data[i].name+'</td>' +
+                        '<td>'+data[i].loginNumber+'</td>' +
+                        '<td>'+data[i].password+'</td>' +
+                        '</tr>';
+                }
+                $('#userList').html(html);
+            }
+        })
+    }
+    $(function(){
+        loadList();
+    })
+
+</script>
+</body>
+</html>
